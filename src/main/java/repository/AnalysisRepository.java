@@ -5,6 +5,7 @@
  */
 package repository;
 
+import java.io.File;
 import org.repodriller.scm.GitRemoteRepository;
 import org.repodriller.scm.GitRepository;
 import org.repodriller.scm.SCM;
@@ -22,12 +23,15 @@ public class AnalysisRepository extends SCMRepository {
 
     public static AnalysisRepository buildRepository(String url, Source source, String projectName) {
         String projectPath = url;
+
         if (source.equals(Source.GIT)) {
             projectPath = "./temp/" + projectName;
-            GitRemoteRepository.hostedOn(url).inTempDir(projectPath).buildAsSCMRepository();
+            if (!checkIfProjectAlreadyDownloaded(projectPath)) {
+                GitRemoteRepository.hostedOn(url).inTempDir(projectPath).buildAsSCMRepository();
+            }
         }
         SCMRepository scmr = GitRepository.singleProject(projectPath);
-        return new AnalysisRepository(url, source, projectName, scmr.getScm(), 
+        return new AnalysisRepository(url, source, projectName, scmr.getScm(),
                 scmr.getOrigin(), scmr.getPath(), scmr.getHeadCommit(), scmr.getFirstCommit());
     }
 
@@ -37,6 +41,11 @@ public class AnalysisRepository extends SCMRepository {
         this.url = url;
         this.source = source;
         this.projectName = projectName;
+    }
+
+    private static boolean checkIfProjectAlreadyDownloaded(String path) {
+        File checkPath = new File(path);
+        return checkPath.isDirectory();
     }
 
     public String getUrl() {
@@ -50,6 +59,5 @@ public class AnalysisRepository extends SCMRepository {
     public String getProjectName() {
         return projectName;
     }
-       
 
 }

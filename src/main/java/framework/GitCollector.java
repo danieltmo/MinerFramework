@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miner;
+package framework;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +27,20 @@ public class GitCollector {
         mining = new RepositoryMining().in(repository);
     }
 
-    public void setTools(List<PersistenceTool> tools) {
-        this.tools = tools;
+    public List<PersistenceTool> getTools() {
+        return tools;
+    }
+
+    public void addTools(List<PersistenceTool> tools) {
+        this.tools.addAll(tools);
+    }
+
+    public void addTool(PersistenceTool tool) {
+        this.tools.add(tool);
     }
 
     public void collect() {
-        
+
         for (PersistenceTool t : tools) {
             mining.process(t.getTool(), t.getPersistenceMechanism());
         }

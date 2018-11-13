@@ -2,7 +2,7 @@ package org.repodriller.filter.diff;
 
 import java.util.List;
 
-import org.repodriller.util.RDFileUtils;
+import util.RDFileUtils;
 
 /**
  * Only process diffs on files without certain file extensions.

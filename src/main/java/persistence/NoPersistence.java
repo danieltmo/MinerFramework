@@ -1,4 +1,6 @@
-package org.repodriller.persistence;
+package persistence;
+
+import persistence.Bundle;
 
 /**
  * A NoPersistence is a PersistenceMechanism that ignores all method calls.
@@ -9,7 +11,7 @@ package org.repodriller.persistence;
 public class NoPersistence implements PersistenceMechanism {
 
 	@Override
-	public void write(Object... line) {
+	public void write(Bundle bundle) {
 
 	}
 

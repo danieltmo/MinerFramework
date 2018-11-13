@@ -43,12 +43,12 @@ import org.repodriller.domain.Commit;
 import org.repodriller.filter.commit.CommitFilter;
 import org.repodriller.filter.commit.NoFilter;
 import org.repodriller.filter.range.CommitRange;
-import org.repodriller.persistence.NoPersistence;
-import org.repodriller.persistence.PersistenceMechanism;
+import persistence.NoPersistence;
+import persistence.PersistenceMechanism;
 import org.repodriller.scm.CommitVisitor;
 import org.repodriller.scm.CollectConfiguration;
 import org.repodriller.scm.SCMRepository;
-import org.repodriller.util.RDFileUtils;
+import util.RDFileUtils;
 
 /**
  * RepositoryMining is the core class of RepoDriller.

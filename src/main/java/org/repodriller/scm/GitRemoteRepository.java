@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.repodriller.RepoDrillerException;
-import org.repodriller.util.RDFileUtils;
+import util.RDFileUtils;
 
 /**
  * A GitRepository that knows how to clone a remote repo and clean up after itself.

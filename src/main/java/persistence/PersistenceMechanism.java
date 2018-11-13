@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package org.repodriller.persistence;
+package persistence;
 
-public class PersistenceMechanismException extends RuntimeException {
-
-	private static final long serialVersionUID = 1L;
-	public PersistenceMechanismException(String msg) {
-		super(msg);
-	}
-
-
+public interface PersistenceMechanism {
+    
+        Bundle persistenceBundle = new Bundle();
+        
+        default Bundle getBundle(){
+            return persistenceBundle;
+        }
+        
+	void write(Bundle bundle);
+	void close();
 }

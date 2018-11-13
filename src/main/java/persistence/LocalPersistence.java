@@ -8,10 +8,8 @@ package persistence;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.repodriller.domain.Commit;
-import org.repodriller.persistence.PersistenceMechanism;
+import org.repodriller.domain.Modification;
 import repository.AnalysisRepository;
 
 /**
@@ -42,18 +40,26 @@ public class LocalPersistence implements PersistenceMechanism {
     }
 
     @Override
-    public void write(Object... os) {
-        Commit commit = (Commit) os[0];
+    public void write(Bundle subBundle) {
+        try {
+            Commit commit = (Commit) subBundle.get("commit");
+            createCommitFolder(commit.getHash());
 
-        createCommitFolder(commit.getHash());
+            //write code
+            File f = new File(commitPath + "/code");
+            f.mkdir();
+            commit.getModifications().forEach((m) -> {
+                try {
+                    String fileName = m.getFileName().substring(m.getFileName().lastIndexOf("/"));
+                    write(f.getAbsolutePath(), fileName, m.getSourceCode());
+                } catch (Exception e) {
+                    System.err.println("Commit só possui modificação em arquivos de config");
+                }
+            });
 
-        //write code
-        File f = new File(commitPath + "/code");
-        f.mkdir();
-        commit.getModifications().forEach((m) -> {
-            String fileName = m.getFileName().substring(m.getFileName().lastIndexOf("/"));
-            write(f.getAbsolutePath(),fileName,m.getSourceCode());
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void write(String path, String fileName, String content) {
@@ -64,7 +70,7 @@ public class LocalPersistence implements PersistenceMechanism {
             writer.flush();
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(LocalPersistence.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 

@@ -7,8 +7,8 @@ package tool;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.repodriller.persistence.NoPersistence;
-import org.repodriller.persistence.PersistenceMechanism;
+import persistence.NoPersistence;
+import persistence.PersistenceMechanism;
 
 /**
  *

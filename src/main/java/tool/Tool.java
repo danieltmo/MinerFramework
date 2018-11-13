@@ -8,9 +8,10 @@ package tool;
 import java.util.ArrayList;
 import java.util.List;
 import org.repodriller.domain.Commit;
-import org.repodriller.persistence.PersistenceMechanism;
+import persistence.PersistenceMechanism;
 import org.repodriller.scm.CommitVisitor;
 import org.repodriller.scm.SCMRepository;
+import persistence.Bundle;
 import tool.state.ExecutionState;
 import tool.state.PosExecutionState;
 import tool.state.PreExecutionState;
@@ -33,32 +34,17 @@ public abstract class Tool implements CommitVisitor {
 
     @Override
     public void initialize(SCMRepository repo, PersistenceMechanism writer) {
-        runCommands(new PreExecutionState() {
-            @Override
-            public Object[] getStateData() {
-                return new Object[]{repo, writer};
-            }
-        });
+        runCommands(new PreExecutionState(repo,writer));
     }
 
     @Override
     public void process(SCMRepository repo, Commit commit, PersistenceMechanism writer) {
-        runCommands(new ExecutionState() {
-            @Override
-            public Object[] getStateData() {
-                return new Object[]{repo, commit, writer};
-            }
-        });
+        runCommands(new ExecutionState(repo,commit,writer));
     }
 
     @Override
-    public void finalize(SCMRepository repo, PersistenceMechanism writer) {
-        runCommands(new PosExecutionState() {
-            @Override
-            public Object[] getStateData() {
-                return new Object[]{repo, writer};
-            }
-        });
+    public void finalize(SCMRepository repo, PersistenceMechanism writer, Bundle memoryBundle) {
+        runCommands(new PosExecutionState(repo,writer,memoryBundle));
     }
     
     public ArrayList<String> requiredProperties(){

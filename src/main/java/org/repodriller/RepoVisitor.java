@@ -1,5 +1,6 @@
 package org.repodriller;
 
+import framework.CollectorFramework;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -10,11 +11,10 @@ import java.util.concurrent.BlockingQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.repodriller.domain.Commit;
-import org.repodriller.persistence.PersistenceMechanism;
-import org.repodriller.persistence.csv.CSVFileFormatException;
+import persistence.PersistenceMechanism;
 import org.repodriller.scm.CommitVisitor;
 import org.repodriller.scm.SCMRepository;
-import org.repodriller.util.RDFileUtils;
+import util.RDFileUtils;
 
 /**
  * A RepoVisitor offers Repo-level visiting to a group of CommitVisitors.
@@ -179,9 +179,6 @@ public class RepoVisitor {
 				try {
 					log.debug("Thread " + Thread.currentThread().getId() + ": processing " + commit.getHash() + " with " + cvpm.cv.name() + " in " + cloneInfo);
 					cvpm.cv.process(scmRepoClone.repo, commit, cvpm.pm);
-				} catch (CSVFileFormatException e) {
-					log.fatal(e);
-					System.exit(-1);
 				} catch (Exception e) {
 					log.error("Error processing #" + commit.getHash() + " in " + cloneInfo +
 							", commitVisitor=" + cvpm.cv.name() + ", error=" + e.getMessage(), e);
@@ -204,7 +201,7 @@ public class RepoVisitor {
 		for (CVPM cvpm : visitors) {
 			try {
 				log.info("-> Finalizing visitor " + cvpm.cv.name());
-				cvpm.cv.finalize(currentRepo, cvpm.pm);
+				cvpm.cv.finalize(currentRepo, cvpm.pm,CollectorFramework.globalBundle);
 			} catch (Exception e) {
 				log.error("Error in " + currentRepo.getPath() +
 						"when finalizing " + cvpm.cv.name() + ", error=" + e.getMessage(), e);

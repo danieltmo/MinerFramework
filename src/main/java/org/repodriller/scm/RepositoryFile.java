@@ -2,7 +2,7 @@ package org.repodriller.scm;
 
 import java.io.File;
 
-import org.repodriller.util.RDFileUtils;
+import util.RDFileUtils;
 
 public class RepositoryFile {
 

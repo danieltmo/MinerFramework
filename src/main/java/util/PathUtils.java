@@ -1,4 +1,4 @@
-package org.repodriller.util;
+package util;
 
 public class PathUtils {
 

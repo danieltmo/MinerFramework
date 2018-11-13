@@ -37,8 +37,8 @@ import org.eclipse.jgit.util.io.DisabledOutputStream;
 import org.repodriller.RepoDrillerException;
 import org.repodriller.domain.*;
 import org.repodriller.filter.diff.DiffFilter;
-import org.repodriller.util.PathUtils;
-import org.repodriller.util.RDFileUtils;
+import util.PathUtils;
+import util.RDFileUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

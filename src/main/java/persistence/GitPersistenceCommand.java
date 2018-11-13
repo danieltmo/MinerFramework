@@ -5,7 +5,8 @@
  */
 package persistence;
 
-import org.repodriller.domain.Commit;
+import persistence.Bundle;
+import persistence.PersistenceMechanism;
 import tool.ToolCommand;
 import tool.ToolState;
 import tool.state.ExecutionState;
@@ -14,26 +15,30 @@ import tool.state.ExecutionState;
  *
  * @author Daniel
  */
-public class PersistenceCommand implements ToolCommand {
-    
+public class GitPersistenceCommand implements ToolCommand {
+
     @Override
     public void run(ToolState state) {
         if (state instanceof ExecutionState) {
-            Commit currentCommit = (Commit) state.getStateData()[1];
-            LocalPersistence persistence = (LocalPersistence) state.getStateData()[2];
-            persistence.write(currentCommit);
+
+            ExecutionState ee = (ExecutionState) state;
+            PersistenceMechanism persistence = (PersistenceMechanism) ee.getWriter();
+
+            Bundle b = new Bundle();
+            b.put("commit", ee.getCommit());
+            persistence.write(b);
         }
-        
+
     }
-    
+
     @Override
     public String getName() {
-        return "Salvar repositorio";
+        return "Git Persistence";
     }
-    
+
     @Override
     public String getDescription() {
-        return "Salva localmente o repositorio e as informações solicitadas";
+        return "Coleta dados dos repositorios";
     }
-    
+
 }

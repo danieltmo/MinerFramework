@@ -5,7 +5,7 @@
  */
 package tool;
 
-import org.repodriller.persistence.PersistenceMechanism;
+import persistence.PersistenceMechanism;
 
 /**
  *

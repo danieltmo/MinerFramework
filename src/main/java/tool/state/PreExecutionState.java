@@ -5,12 +5,36 @@
  */
 package tool.state;
 
+import org.repodriller.scm.SCMRepository;
+import persistence.PersistenceMechanism;
 import tool.ToolState;
 
 /**
  *
  * @author Daniel
  */
-public abstract class PreExecutionState implements ToolState{
+public class PreExecutionState implements ToolState{
     
+       
+    private SCMRepository repo;
+    private PersistenceMechanism writer;
+
+    public PreExecutionState(SCMRepository repo, PersistenceMechanism writer) {
+        this.repo = repo;
+        this.writer = writer;
+    }
+
+    @Override
+    public Object[] getStateData() {
+       return new Object[]{this};
+    }
+
+    public SCMRepository getRepo() {
+        return repo;
+    }
+
+
+    public PersistenceMechanism getWriter() {
+        return writer;
+    }
 }

@@ -1,4 +1,4 @@
-package org.repodriller.util;
+package util;
 
 import java.io.File;
 import java.io.IOException;
