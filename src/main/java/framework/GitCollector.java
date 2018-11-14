@@ -20,14 +20,14 @@ public class GitCollector {
 
     private AnalysisRepository repository;
     private RepositoryMining mining;
-    private List<PersistenceTool> tools = new ArrayList<>();
+    private ArrayList<PersistenceTool> tools = new ArrayList<>();
 
     public GitCollector(AnalysisRepository repository) {
         this.repository = repository;
         mining = new RepositoryMining().in(repository);
     }
 
-    public List<PersistenceTool> getTools() {
+    public ArrayList<PersistenceTool> getTools() {
         return tools;
     }
 

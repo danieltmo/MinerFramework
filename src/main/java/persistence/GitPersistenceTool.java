@@ -18,7 +18,7 @@ public class GitPersistenceTool extends Tool {
     public String name() {
         return "persistenceGit";
     }
-    
+
     @Override
     public String getDescription() {
         return "Uma ferramenta para armazenar os dados minerados de um projeto do git";
@@ -32,5 +32,11 @@ public class GitPersistenceTool extends Tool {
         properties.add("Autor do commit");
         return properties;
     }
+
+//    public ArrayList<String> requiredProperties() {
+//        ArrayList<String> properties = new ArrayList<>();
+//        properties.add("Codigo fonte");
+//        return properties;
+//    }
 
 }

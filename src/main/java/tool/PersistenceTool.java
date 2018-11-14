@@ -11,7 +11,7 @@ import persistence.PersistenceMechanism;
  *
  * @author Daniel
  */
-public class PersistenceTool {
+public class PersistenceTool{
     
     private Tool tool;
     private PersistenceMechanism persistenceMechanism;

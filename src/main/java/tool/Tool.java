@@ -20,7 +20,7 @@ import tool.state.PreExecutionState;
  *
  * @author Daniel
  */
-public abstract class Tool implements CommitVisitor {
+public abstract class Tool implements CommitVisitor{
 
     private List<ToolCommand> commands = new ArrayList<>();
 
@@ -55,10 +55,15 @@ public abstract class Tool implements CommitVisitor {
 
     public abstract ArrayList<String> offeredProperties();
 
-    private void runCommands(ToolState state) {
+    protected void runCommands(ToolState state) {
         commands.forEach((tc) -> {
             tc.run(state);
         });
     }
 
+    public List<ToolCommand> getCommands() {
+        return commands;
+    }
+
+    
 }

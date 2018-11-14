@@ -5,8 +5,6 @@
  */
 package persistence;
 
-import persistence.Bundle;
-import persistence.PersistenceMechanism;
 import tool.ToolCommand;
 import tool.ToolState;
 import tool.state.ExecutionState;
@@ -40,5 +38,7 @@ public class GitPersistenceCommand implements ToolCommand {
     public String getDescription() {
         return "Coleta dados dos repositorios";
     }
+    
+    
 
 }
